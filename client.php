@@ -38,8 +38,10 @@ $rollingCurl
 
       parse_str(parse_url($request->getUrl(), PHP_URL_QUERY), $params);
 
-      save($request->getResponseText(), $params['empas']);
-      echo $params['empas'] . ' - ' . $request->getResponseText() . PHP_EOL;
+      $json      =  json_decode($request->getResponseText());
+
+      save($json->status, $json->empas);
+      echo $json->empas . ' - ' . $json->status . PHP_EOL;
     })
     ->setSimultaneousLimit(50)
     ->execute();
