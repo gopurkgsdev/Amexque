@@ -29,6 +29,7 @@ use \RollingCurl\RollingCurl;
 $rollingCurl = new \RollingCurl\RollingCurl();
 
 $list     = explode("\n", str_replace("\r", "", file_get_contents('list.txt')));
+$list     = array_unique($list);
 foreach ($list as $key => $mp) {
 
   if (empty($mp)) { continue; }
@@ -47,6 +48,7 @@ $rollingCurl
         echo $request->getResponseText() . PHP_EOL;
       } else {
         save('BAD', $params['empas']);
+        echo $request->getResponseText() . PHP_EOL;
       }
     })
     ->setSimultaneousLimit(5)

