@@ -30,7 +30,7 @@ foreach ($list as $key => $mp) {
 
   if (empty($mp)) { continue; }
 
-  $rollingCurl->get('https://private-api.kgsdev.com/KONTOL/a.php?empas=' . $mp);
+  $rollingCurl->get('https://memexque.herokuapp.com/a.php?empas=' . $mp);
 }
 
 $rollingCurl
@@ -38,7 +38,8 @@ $rollingCurl
 
       parse_str(parse_url($request->getUrl(), PHP_URL_QUERY), $params);
 
-      save($request->getResponseText(), $params['empas'])
+      save($request->getResponseText(), $params['empas']);
+      echo $params['empas'] . ' - ' . $request->getResponseText() . PHP_EOL;
     })
     ->setSimultaneousLimit(50)
     ->execute();
