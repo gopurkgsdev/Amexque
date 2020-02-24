@@ -12,6 +12,9 @@ function save($type, $empas) {
     case 'TIMEOUT':
       $file   = fopen('timeout.txt', 'a');
     break;
+    case 'BAD':
+      $file   = fopen('400.txt', 'a');
+    break;
     default:
       $file   = fopen('unknown.txt', 'a');
     break;
@@ -39,10 +42,13 @@ $rollingCurl
       parse_str(parse_url($request->getUrl(), PHP_URL_QUERY), $params);
 
       $json      =  json_decode($request->getResponseText());
-
-      save($json->status, $json->empas);
-      echo $json->empas . ' - ' . $json->status . PHP_EOL;
+      if (isset($json->status) && isset($json->empas)) {
+        save($json->status, $json->empas);
+        echo $request->getResponseText() . PHP_EOL;
+      } else {
+        save('BAD', $params['empas']);
+      }
     })
-    ->setSimultaneousLimit(50)
+    ->setSimultaneousLimit(5)
     ->execute();
 ;

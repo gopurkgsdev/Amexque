@@ -131,6 +131,7 @@ if (!isset($_REQUEST['empas']))
   } else {
 
     $result = [
+      'code'    =>  $curl->getHttpStatusCode,
       'status'  =>  'UNKNOWN',
       'empas'   =>  $username . '|' . $password
     ];
