@@ -7,16 +7,16 @@ use \Curl\Curl;
 function save($type, $empas) {
   switch ($type) {
     case 'die':
-      $file   = fopen('die.txt', 'a');
+      $file   = fopen('result/die.txt', 'a');
     break;
     case 'live':
-      $file   = fopen('live.txt', 'a');
+      $file   = fopen('result/live.txt', 'a');
     break;
     case 'cant':
-      $file   = fopen('timeout.txt', 'a');
+      $file   = fopen('result/timeout.txt', 'a');
     break;
     default:
-      $file   = fopen('unknown.txt', 'a');
+      $file   = fopen('result/unknown.txt', 'a');
     break;
   }
 

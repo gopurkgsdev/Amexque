@@ -30,11 +30,21 @@ $rollingCurl = new \RollingCurl\RollingCurl();
 
 $list     = explode("\n", str_replace("\r", "", file_get_contents('list.txt')));
 $list     = array_unique($list);
-foreach ($list as $key => $mp) {
 
-  if (empty($mp)) { continue; }
+$sock     = explode("\n", str_replace("\r", "", file_get_contents('sock_live.txt')));
+$chunk    = array_chunk($list, count($sock)-1);
 
-  $rollingCurl->get('https://memexque.herokuapp.com/a.php?empas=' . $mp);
+foreach ($chunk as $key => $cot) {
+
+  if (empty($cot)) { continue; }
+
+  foreach ($cot as $asu => $mp) {
+
+    if (empty($mp) || empty($sock[$asu])) { continue; }
+
+    // $rollingCurl->get('https://memexque.herokuapp.com/a.php?empas=' . $mp . '&sock=' . $sock[$asu]);
+    $rollingCurl->get('http://localhost/Amexque/a.php?empas=' . $mp . '&sock=' . $sock[$asu]);
+  }
 }
 
 $rollingCurl
@@ -51,6 +61,6 @@ $rollingCurl
         echo $request->getResponseText() . PHP_EOL;
       }
     })
-    ->setSimultaneousLimit(5)
+    ->setSimultaneousLimit(count($sock)-1)
     ->execute();
 ;
