@@ -31,7 +31,7 @@ $rollingCurl = new \RollingCurl\RollingCurl();
 $list     = explode("\n", str_replace("\r", "", file_get_contents('list.txt')));
 $list     = array_unique($list);
 
-$sock     = explode("\n", str_replace("\r", "", file_get_contents('sock_live.txt')));
+$sock     = explode("\n", str_replace("\r", "", file_get_contents('sock/sock_live.txt')));
 $chunk    = array_chunk($list, count($sock)-1);
 
 foreach ($chunk as $key => $cot) {
