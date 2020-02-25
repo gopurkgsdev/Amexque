@@ -9,7 +9,7 @@ $sock         = array_unique(explode("\n", str_replace("\r", "", file_get_conten
 foreach ($sock as $key => $val) {
   if (empty($val)) { continue; }
 
-  $rollingCurl->get('http://localhost/Amexque/sock_server.php?sock=' . $val);
+  $rollingCurl->get('http://localhost/Amexque/sock/sock_server.php?sock=' . $val);
 }
 
 $rollingCurl
