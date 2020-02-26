@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitb00699e0a073d87e7aa41d92465a03f4
 {
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Wujunze\\' => 8,
+        ),
         'C' => 
         array (
             'Curl\\' => 5,
@@ -14,6 +18,10 @@ class ComposerStaticInitb00699e0a073d87e7aa41d92465a03f4
     );
 
     public static $prefixDirsPsr4 = array (
+        'Wujunze\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wujunze/php-cli-color/src',
+        ),
         'Curl\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-curl-class/php-curl-class/src/Curl',

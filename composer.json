@@ -1,6 +1,7 @@
 {
     "require": {
         "php-curl-class/php-curl-class": "^8.6",
-        "chuyskywalker/rolling-curl": "*"
+        "chuyskywalker/rolling-curl": "*",
+        "wujunze/php-cli-color": "^2.4"
     }
 }
