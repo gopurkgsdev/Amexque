@@ -11,9 +11,12 @@ $curl   =  new Curl();
 
 $curl->setOpt(CURLOPT_HTTPPROXYTUNNEL, TRUE);
 $curl->setOpt(CURLOPT_PROXY, $_REQUEST['sock']);
-$curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+// $curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
 $curl->setOpt(CURLOPT_TIMEOUT_MS, 20000);
 $curl->setOpt(CURLOPT_USERAGENT, 'KONTOL');
+$curl->setOpt(CURLOPT_RETURNTRANSFER, TRUE);
+$curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
+$curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
 
 $check  = $curl->get('https://www.cloudflare.com/cdn-cgi/trace');
 if (!$check) {

@@ -25,14 +25,14 @@ $curl   =  new Curl();
 
 $curl->setOpt(CURLOPT_HTTPPROXYTUNNEL, TRUE);
 $curl->setOpt(CURLOPT_PROXY, $_REQUEST['sock']);
-$curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+// $curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
 $curl->setOpt(CURLOPT_TIMEOUT_MS, 20000);
 
 $curl->setHeader('Host', 'travel.americanexpress.com');
 $curl->setHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36');
 
 $grabPage   = $curl->post('https://travel.americanexpress.com/travel/partner/subNav/login', http_build_query([
-  'TLTSID'          =>  '561078985078016757'.rand(1000, 9999).'75781853780',
+  'TLTSID'          =>  '56107'.rand(100000, 999999).'8016757'.rand(1000, 9999).'757' . rand(10000000, 99999999),
   'requestSource'   =>  'https://www.amextravel.com/flight-searches'
 ]));
 

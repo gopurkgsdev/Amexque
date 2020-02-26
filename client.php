@@ -103,7 +103,7 @@ $rollingCurl
           break;
 
           case '400':
-            $status   = $colors->getColoredString("400        ", "cyan", null);
+            $status   = $colors->getColoredString("400     ", "cyan", null);
           break;
 
           default:
