@@ -88,7 +88,7 @@ if (!isset($_REQUEST['empas']))
   $curl->setOpt(CURLOPT_HTTPPROXYTUNNEL, TRUE);
   $curl->setOpt(CURLOPT_PROXY, $_REQUEST['sock']);
   $curl->setOpt(CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-  $curl->setOpt(CURLOPT_TIMEOUT_MS, 5000);
+  $curl->setOpt(CURLOPT_TIMEOUT_MS, 20000);
 
   $curl->setHeader('Host', 'travel.americanexpress.com');
   $curl->setHeader('Upgrade-Insecure-Requests', '1');

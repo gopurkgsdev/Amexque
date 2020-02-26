@@ -61,6 +61,6 @@ $rollingCurl
         echo $request->getResponseText() . PHP_EOL;
       }
     })
-    ->setSimultaneousLimit(count($sock)-1)
+    ->setSimultaneousLimit(20)
     ->execute();
 ;

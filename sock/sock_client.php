@@ -1,4 +1,8 @@
 <?php
+ini_set("memory_limit", "-1");
+set_time_limit(0);
+
+error_reporting(0);
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 use \RollingCurl\RollingCurl;
