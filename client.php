@@ -1,7 +1,7 @@
 <?php
 ini_set("memory_limit", "-1");
 set_time_limit(0);
-// error_reporting(0);
+error_reporting(0);
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -50,6 +50,10 @@ $input['sock']       = trim(fgets(fopen("php://stdin", "r")));
 if (!file_exists($input['sock'])) {
   die(' File Not Found ');
 }
+
+echo '  Input Speed ratio  : ';
+$input['speed']       = trim(fgets(fopen("php://stdin", "r")));
+
 print("\033[2J\033[;H");
 
 $list     = explode("\n", str_replace("\r", "", file_get_contents($input['list'])));
@@ -117,6 +121,6 @@ $rollingCurl
         printf($mask, '', $username, $password, $json->sock, $json->sec);
       }
     })
-    ->setSimultaneousLimit(count($sock)-1)
+    ->setSimultaneousLimit((int) $input['speed'])
     ->execute();
 ;
