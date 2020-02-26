@@ -20,6 +20,6 @@ $rollingCurl
     ->setCallback(function(\RollingCurl\Request $request, \RollingCurl\RollingCurl $rollingCurl) use (&$results) {
       echo $request->getResponseText();
     })
-    ->setSimultaneousLimit(100)
+    ->setSimultaneousLimit(count($sock)-1)
     ->execute();
 ;

