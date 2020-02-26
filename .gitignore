@@ -6,7 +6,3 @@ testing.php
 *.txt
 stock
 trash
-.gitignore
-.gitattributes
-composer.json
-composer.lock
