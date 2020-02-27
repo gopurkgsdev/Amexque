@@ -18,7 +18,7 @@ $curl->setOpt(CURLOPT_RETURNTRANSFER, TRUE);
 $curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
 $curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
 
-$check  = $curl->get('https://www.cloudflare.com/cdn-cgi/trace');
+$check  = $curl->get('https://www.paypalobjects.com/webstatic/icon/favicon.ico');
 if (!$check) {
 
   $file     = fopen('sock_die.txt', 'a');

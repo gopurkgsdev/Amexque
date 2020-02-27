@@ -60,7 +60,17 @@ $list     = explode("\n", str_replace("\r", "", file_get_contents($input['list']
 $list     = array_unique($list);
 
 $sock     = explode("\n", str_replace("\r", "", file_get_contents($input['sock'])));
+$sock     = array_unique($sock);
 $chunk    = array_chunk($list, count($sock)-1);
+
+$mask = " %-30.30s %-30.30s \n";
+
+echo PHP_EOL;
+echo ' ==============================================================================' . PHP_EOL;
+printf($mask, 'Total Sock: ' . count($sock), 'Total List: ' . count($list)) . PHP_EOL;
+echo ' ==============================================================================' . PHP_EOL . PHP_EOL;
+echo ' Is that Ok? Enter / CTRL + C : ';
+$input['cot']       = trim(fgets(fopen("php://stdin", "r")));
 
 foreach ($chunk as $key => $cot) {
   if (empty($cot)) { continue; }

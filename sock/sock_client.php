@@ -10,6 +10,11 @@ use \RollingCurl\RollingCurl;
 $rollingCurl  = new \RollingCurl\RollingCurl();
 
 $sock         = array_unique(explode("\n", str_replace("\r", "", file_get_contents('sock.txt'))));
+
+echo PHP_EOL . '  ' . count($sock) . '  ' . PHP_EOL;
+echo '  Continue?  /Enter : ';
+$input['list']       = trim(fgets(fopen("php://stdin", "r")));
+
 foreach ($sock as $key => $val) {
   if (empty($val)) { continue; }
 
@@ -20,6 +25,6 @@ $rollingCurl
     ->setCallback(function(\RollingCurl\Request $request, \RollingCurl\RollingCurl $rollingCurl) use (&$results) {
       echo $request->getResponseText();
     })
-    ->setSimultaneousLimit(count($sock)-1)
+    ->setSimultaneousLimit(1000)
     ->execute();
 ;
