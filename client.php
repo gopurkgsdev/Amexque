@@ -60,8 +60,8 @@ $list     = explode("\n", str_replace("\r", "", file_get_contents($input['list']
 $list     = array_unique($list);
 
 $sock     = explode("\n", str_replace("\r", "", file_get_contents($input['sock'])));
-$sock     = array_unique($sock);
-$chunk    = array_chunk($list, count($sock)-1);
+// $sock     = array_unique($sock);
+$chunk    = array_chunk($list, 50);
 
 $mask = " %-30.30s %-30.30s \n";
 
